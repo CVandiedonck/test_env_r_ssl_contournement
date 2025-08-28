@@ -1,8 +1,7 @@
 #!/bin/bash
-# Configuration minimale pour ignorer SSL
-export PYTHONHTTPSVERIFY=0
-export CURL_CA_BUNDLE=""
+# Configuration R uniquement
 echo 'options(download.file.extra = "--insecure")' >> ~/.Rprofile
+echo "Configuration R terminée"
 
 # Install R package
 # if not available as conda package
