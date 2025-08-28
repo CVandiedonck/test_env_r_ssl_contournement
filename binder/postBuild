@@ -1,7 +1,24 @@
 #!/bin/bash
-# Configuration R uniquement
+
+# Configuration R pour ignorer SSL
 echo 'options(download.file.extra = "--insecure")' >> ~/.Rprofile
-echo "Configuration R terminée"
+echo 'export PYTHONHTTPSVERIFY=0' >> ~/.bashrc
+echo 'export CURL_CA_BUNDLE=""' >> ~/.bashrc
+
+# Configuration RStudio Server (si les droits le permettent)
+mkdir -p ~/.config/rstudio 2>/dev/null || true
+cat > ~/.config/rstudio/rstudio-prefs.json << EOF
+{
+    "ssl_verify_peer": false,
+    "ssl_verify_host": false
+}
+EOF
+
+# Configuration système pour ignorer SSL
+echo "check_certificate = off" >> ~/.wgetrc 2>/dev/null || true
+echo "insecure" >> ~/.curlrc 2>/dev/null || true
+
+echo "Configuration SSL bypass complète terminée"
 
 # Install R package
 # if not available as conda package
